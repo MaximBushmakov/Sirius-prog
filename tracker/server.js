@@ -14,15 +14,18 @@ function parseCookies(request) {
 }
 
 function getRequestParams(request) {
-    req_params_arr = request.url.split('&');
-    req_params_arr[0] = req_params_arr[0].split('?')[1];
-    req_params_dict = {};
-    req_len = req_params_arr.length;
-    for (let i = 0; i < req_len; ++i) {
-        req_param_parts = req_params_arr[i].split('=');
-        req_params_dict[req_param_parts[0]] = req_param_parts[1];
+
+    reqParamsArr = request.url.split('&');
+    reqParamsArr[0] = reqParamsArr[0].split('?')[1];
+
+    reqParamsDict = {};
+    reqLen = reqParamsArr.length;
+    for (let i = 0; i < reqLen; ++i) {
+        reqParamParts = reqParamsArr[i].split('=');
+        reqParamsDict[reqParamParts[0]] = reqParamParts[1];
     }
-    return req_params_dict;
+    
+    return reqParamsDict;
 }
 
 function HandleRequest(request, response) {
@@ -34,25 +37,20 @@ function HandleRequest(request, response) {
 
     let cookies = parseCookies(request);
     if (!("id" in cookies)) {
-        id++;
-        response.writeHead(200, {
-            "Set-Cookie": "id=" + id,
-        });
-        console.log("id: " + id);
-    }
-    else console.log("id: " + cookies["id"]);
+        victimId++;
+        response.writeHead(200, {"Set-Cookie": "id=" + victimId});
+        console.log("id: " + victimId);
+    } else console.log("id: " + cookies["id"]);
 
-    request_params = getRequestParams(request);
-    console.log("url: " + request_params["url"]);
+    requestParams = getRequestParams(request);
+    console.log("url: " + requestParams["url"]);
 
     const trackImg = new Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64');
     response.end(trackImg);
 }
 
-function OnListen() {
-    console.log("Listening");
-}
 
+// server = createServer(HandleRequest);
 server = http_module.createServer(HandleRequest);
-id = 0;
-server.listen(port, OnListen);
+victimId = 0;
+server.listen(port, () => {console.log("Server is working.")});
