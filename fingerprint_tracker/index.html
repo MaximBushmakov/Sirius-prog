@@ -1,0 +1,110 @@
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta content="utf-8" http-equiv="encoding">
+    </head>
+    <body id="body_id">
+        <h1>Some usefull info</h1>
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+
+        <h1>Oter usefull info</h1>
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+            It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.
+            It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+        </p>
+
+        <script>
+            function bin2hex(s){    
+                var v,i, f = 0, a = [];  
+                s += '';  
+                f = s.length;  
+                
+                for (i = 0; i<f; i++) {  
+                    a[i] = s.charCodeAt(i).toString(16).replace(/^([\da-f])$/,"0$1");  
+                }
+                return a.join('');  
+            }
+
+            let body = document.getElementById("body_id");
+
+            function getGPUVendor() {
+                var canvas = document.createElement('canvas');
+                var gl;
+                var debugInfo;
+                var vendor;
+                var renderer;
+                try {
+                    gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+                } catch (e) {
+                    console.log("getGPUVendor failed");
+                }
+                
+                if (gl) {
+                    debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+                    vendor = gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL);
+                    renderer = gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
+                }
+
+                return vendor + " " + renderer;
+            }
+            
+            function TrivialFingerprint() {
+                let txt = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industrys standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+                ans = '';
+                ans += getGPUVendor();
+                ans += navigator.userAgent;
+                ans += navigator.buildID;
+                ans += screen.availHeight;
+                ans += navigator.hardwareConcurrency;
+                return ans;
+            }
+
+            function CanvasFingerprint(img) {
+                let canvas = document.createElement('canvas');
+                let ctx = canvas.getContext('2d');
+                let txt = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\nLorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\nIt was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+                ctx.textBaseline = "top";
+
+                // The most common type
+                ctx.font = "14px 'Arial'";
+                ctx.textBaseline = "alphabetic";
+                ctx.fillStyle = "#f60";
+                ctx.fillRect(125,1,62,20);
+                // Some tricks for color mixing to increase the difference in rendering
+                ctx.fillStyle = "#069";
+                ctx.fillText(txt, 2, 15);
+                ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+                ctx.fillText(txt, 4, 17);
+
+                let b64 = canvas.toDataURL();
+                img.src = b64;
+                b64 = b64.replace("data:image/png;base64,", "");
+                let bin = atob(b64);
+                return bin2hex(bin.slice(-16,-12));
+            }
+
+            function GetFingerprint() {
+                return TrivialFingerprint();
+            }
+
+            let img_tag = document.createElement("img");
+            // img_tag.src = "http://10.42.0.1:8080/?site_id=my_super_site&fingerprint=" + encodeURIComponent(GetFingerprint());
+            img_tag.src = "http://10.42.0.1:8080/?site_id=my_super_site&fingerprint=" + encodeURIComponent(GetFingerprint());
+            img_tag.height = "1";
+            img_tag.width = "1";
+            my_img = document.createElement("img");
+            my_img.height = "150";
+            my_img.width = "300";
+            CanvasFingerprint(my_img);
+            body.appendChild(my_img);
+            body.appendChild(img_tag);
+        </script>
+    </body>
+</html>

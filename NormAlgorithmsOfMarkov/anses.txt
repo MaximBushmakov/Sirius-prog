@@ -1,0 +1,8 @@
+aabbcc
+aabbcc
+aabbcc
+aaa
+abca
+wrong input
+111111
+515151515151

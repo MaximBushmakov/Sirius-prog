@@ -1,0 +1,31 @@
+options
+write intermediate: True
+alphabet
+abc
+scheme
+ab ba
+ac ca
+bc cb
+aaa .
+tests
+aabbcc
+bbccaa
+abcabc
+aaaaaa
+scheme
+a b
+b c
+c .a
+tests
+abca
+alphabet
+12345
+scheme
+12 23
+23 34
+34 45
+45 51
+tests
+aaaaaa
+111111
+1234512345

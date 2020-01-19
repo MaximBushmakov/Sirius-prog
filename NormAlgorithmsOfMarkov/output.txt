@@ -1,0 +1,7 @@
+aabbcc
+bbccaa
+abcabc
+aaaaaa
+abca
+wrong input111111
+1234512345

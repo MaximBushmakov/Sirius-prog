@@ -1,0 +1,3 @@
+write intermediate: False
+file with input: input.txt
+file with output: output.txt
