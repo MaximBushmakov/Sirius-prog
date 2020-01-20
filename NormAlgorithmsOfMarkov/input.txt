@@ -43,3 +43,7 @@ run
 1
 
 111
+scheme
+1 1
+run
+1

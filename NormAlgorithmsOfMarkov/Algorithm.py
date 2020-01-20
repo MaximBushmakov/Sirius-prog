@@ -57,6 +57,14 @@ class Algorithm:
             raise ValueError('input word ' + word + ' not in alphabet ' + self.alphabet)
 
         stop_flag = False
+        i = 0
+        while not stop_flag and i < 1000000:
+            i += 1
+            word, stop_flag = self.apply_scheme_once(word)
+        
+        if i == 1000000:
+            stop_flag = input('Program may be working infinitily. Continue? (y/n) ') == 'n'
+        
         while not stop_flag:
             word, stop_flag = self.apply_scheme_once(word)
 
@@ -178,7 +186,7 @@ def from_file(input_path = 'input.txt', output_path = 'output.txt'):
         input_type = ''
         line = f_in.readline()
         while line:
-            line = line[:-1]
+            line = line.rstrip('\n')
 
             if line in commands:
                 input_type = line
