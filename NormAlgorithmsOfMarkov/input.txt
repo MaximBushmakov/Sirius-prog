@@ -1,5 +1,3 @@
-options
-write intermediate: True
 alphabet
 abc
 scheme
@@ -29,3 +27,19 @@ run
 aaaaaa
 111111
 1234512345
+alphabet
+
+scheme
+ .
+run
+
+a
+alphabet
+111
+scheme
+1 2
+2 .3
+run
+1
+
+111

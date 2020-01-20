@@ -19,7 +19,13 @@ class Algorithm:
         if type(alphabet) != str:
             raise TypeError('wrong type of alphabet: ' + alphabet)
         if ' ' not in alphabet and '.' not in alphabet:
-            self.alphabet = alphabet
+            alphabet_set = set(alphabet)
+            if len(alphabet) != len(alphabet_set):
+                print('Warning: alphabet has the same symbols: ' + alphabet)
+                for symbol in alphabet_set:
+                    self.alphabet += symbol
+            else:
+                self.alphabet = alphabet
         else:
             raise ValueError('invalid alphabet: ' + alphabet)
 
@@ -170,11 +176,15 @@ def from_file(input_path = 'input.txt', output_path = 'output.txt'):
 
     with open(input_path, 'r') as f_in, open(output_path, 'w') as f_out:
         input_type = ''
-        line = f_in.readline().rstrip('\n')
+        line = f_in.readline()
         while line:
+            line = line[:-1]
 
             if line in commands:
                 input_type = line
+                if input_type == 'alphabet':
+                    alg.alphabet = ''
+                    alg.scheme = []
                 if input_type == 'scheme':
                     alg.scheme = []
             else:
@@ -184,7 +194,7 @@ def from_file(input_path = 'input.txt', output_path = 'output.txt'):
                     f_out.write('wrong input\n')
                     errors.append(sys.exc_info()[1])
 
-            line = f_in.readline().rstrip('\n')
+            line = f_in.readline()
     
     for error in errors:
         print(error)
