@@ -8,4 +8,4 @@ Command 'scheme' sets new scheme. After it there are some lines with substitutio
 
 Command 'run' run algorithm. After it there are some lines with words, from which algorithm will run. Results will be written into file with path [output file path] or with path './ouput.txt' if it wasn't destignate.
 
-If there is wrong alphabet, scheme or input, program write 'wrong input' and after finishing all errors will write into console.
+If there is wrong alphabet, scheme or input, program will write 'wrong input' and after finishing all errors will write into console.
