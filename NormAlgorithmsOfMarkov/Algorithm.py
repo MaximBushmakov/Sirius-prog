@@ -163,7 +163,7 @@ def from_file(input_path = 'input.txt', output_path = 'output.txt'):
         'scheme': lambda line: alg.scheme.append(Algorithm.get_substitution_parts(line)),
         # '+scheme': alg.plus_scheme,
         # '-scheme': alg.dif_scheme,
-        'tests': lambda line: f_out.write(alg.run_algorithm(line) + '\n')
+        'run': lambda line: f_out.write(alg.run_algorithm(line) + '\n')
         }
     
     errors = []
