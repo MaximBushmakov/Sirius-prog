@@ -4,8 +4,8 @@ alphabet
 abc
 scheme
 ab ba
-ac ca
 bc cb
+ac ca
 aaa .
 tests
 aabbcc

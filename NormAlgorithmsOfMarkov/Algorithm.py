@@ -24,7 +24,6 @@ class Algorithm:
             raise ValueError('invalid alphabet: ' + alphabet)
 
     def set_scheme(self, scheme):
-        self.scheme = []
         # TODO or not TODO verification of substitution_parts[1]
         self.scheme = scheme
 
@@ -43,6 +42,7 @@ class Algorithm:
             if i >= 0:
                 word = word[:i] + substitution[1] + word[i + len(substitution[0]):]
                 return word, substitution[2]
+        return word, True
     
     # line is a word
     def run_algorithm(self, word):
@@ -50,9 +50,10 @@ class Algorithm:
         if not Algorithm.is_in_alphabet(word, self.alphabet):
             raise ValueError('input word ' + word + ' not in alphabet ' + self.alphabet)
 
-        stop_flag = True
+        stop_flag = False
         while not stop_flag:
             word, stop_flag = self.apply_scheme_once(word)
+
         return word
 
 
@@ -171,14 +172,16 @@ def from_file(input_path = 'input.txt', output_path = 'output.txt'):
         input_type = ''
         line = f_in.readline().rstrip('\n')
         while line:
-            
+
             if line in commands:
                 input_type = line
+                if input_type == 'scheme':
+                    alg.scheme = []
             else:
                 try:
                     commands[input_type](line)
                 except:
-                    f_out.write('wrong input')
+                    f_out.write('wrong input\n')
                     errors.append(sys.exc_info()[1])
 
             line = f_in.readline().rstrip('\n')

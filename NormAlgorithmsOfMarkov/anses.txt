@@ -1,8 +1,8 @@
-aabbcc
-aabbcc
-aabbcc
+ccbbaa
+ccbbaa
+ccbbaa
 aaa
-abca
+accc
 wrong input
 111111
-515151515151
+5151551515

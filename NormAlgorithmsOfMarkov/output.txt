@@ -1,7 +1,8 @@
-aabbcc
-bbccaa
-abcabc
-aaaaaa
-abca
-wrong input111111
-1234512345
+ccbbaa
+ccbbaa
+ccbbaa
+aaa
+accc
+wrong input
+111111
+5151551515
