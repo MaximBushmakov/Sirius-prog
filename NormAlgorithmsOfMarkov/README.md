@@ -7,3 +7,5 @@ Command 'alphabet' sets new alphabet. After it there is 1 line with symbols with
 Command 'scheme' sets new scheme. After it there are some lines with substitutions, any of which has 2 words, splitted by whitespace, and before 2nd there may be dot, what shows that it is final substitution.
 
 Command 'run' run algorithm. After it there are some lines with words, from which algorithm will run. Results will be written into file with path [output file path] or with path './ouput.txt' if it wasn't destignate.
+
+If there is wrong alphabet, scheme or input, program write 'wrong input' and after finishing all errors will write into console.
