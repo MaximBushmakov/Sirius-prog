@@ -1,3 +1,7 @@
+**Warning!**
+
+In this program there are crutches on crutches and some unusable function. There some functions and many tests are not done.
+
 To use this code you should create new file with input data and run from_file([input file path], [output file path]). 
 
 In file with input you should write commands and values as input data to execute theese commands. There are 3 commands: 'alphabet', 'scheme' and 'tests'. 
