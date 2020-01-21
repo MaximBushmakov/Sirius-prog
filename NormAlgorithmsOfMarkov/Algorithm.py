@@ -16,16 +16,19 @@ class Algorithm:
         Algorithm.change_options_from_data(self.options, options)
 
     def set_alphabet(self, alphabet):
+
         if type(alphabet) != str:
             raise TypeError('wrong type of alphabet: ' + alphabet)
+
+        # ' ' is splitting words, '.' is showing that substitution is final
         if ' ' not in alphabet and '.' not in alphabet:
             alphabet_set = set(alphabet)
-            if len(alphabet) != len(alphabet_set):
+            if len(alphabet) == len(alphabet_set):
+                self.alphabet = alphabet
+            else:
                 print('Warning: alphabet has the same symbols: ' + alphabet)
                 for symbol in alphabet_set:
                     self.alphabet += symbol
-            else:
-                self.alphabet = alphabet
         else:
             raise ValueError('invalid alphabet: ' + alphabet)
 
@@ -85,12 +88,9 @@ class Algorithm:
 
         parts = line.split(' ')
 
-        if parts[1]:
-            if parts[1][0] == '.':
-                parts[1] = parts[1][1:]
-                parts.append(True)
-            else:
-                parts.append(False)
+        if parts[1] and parts[1][0] == '.':
+            parts[1] = parts[1][1:]
+            parts.append(True)
         else:
             parts.append(False)
 
@@ -110,13 +110,16 @@ class Algorithm:
     @staticmethod
     def get_option_parts(line, options = {}):
         # line = 'name: value'
+
         parts = line.split(':')
         if len(parts) != 2:
             raise ValueError('invalid format of input options: ' + line)
+
         for i in range(2):
             parts[i] = parts[i].strip(' ').rstrip(' ')
         if options and parts[0] not in options:
             raise ValueError('options: ' + ' '.join(options) + '\ninvalid name of option: ' + parts[0])
+
         return tuple(parts)
 
     @staticmethod
@@ -124,10 +127,12 @@ class Algorithm:
         options = {}
         with open(options_path, 'r') as f_opt:
             line = f_opt.readline().rstrip('\n')
+
             while line:
                 parts = Algorithm.get_option_parts(line)
                 options[parts[0]] = parts[1]
                 line = f_opt.readline().rstrip('\n')
+
         return options
     
 
@@ -144,9 +149,11 @@ class Algorithm:
     def change_options_from_file(input_path, options):
         with open(input_path, 'r') as f_opt:
             line = f_opt.readline().rstrip('\n')
+
             while line:
                 Algorithm.change_options_from_pair(Algorithm.get_option_parts(line, options), options)
                 line = f_opt.readline().rstrip('\n')
+
             return options, line
 
     
@@ -156,12 +163,16 @@ class Algorithm:
             try:
                 if len(option) != 2:
                     raise ValueError('wrong format of option: ' + option)
+
                 # if it`s a pair
                 Algorithm.change_options_from_pair((option[0], option[1]), options)
+
             except IndexError:
                 try:
+
                     # if it`s a dict-like obj
                     Algorithm.change_options_from_pair((option, options[option]), options)
+
                 except KeyError:
                     raise ValueError('wrong format of input option ' + option + ' in options: ' + options)
     
@@ -171,6 +182,7 @@ class Algorithm:
 def from_file(input_path = 'input.txt', output_path = 'output.txt'):
 
     alg = Algorithm('', [], {})
+
     commands = {
         'options': lambda line: Algorithm.change_options_from_pair(Algorithm.get_option_parts(line), alg.options),
         'alphabet': alg.set_alphabet,
@@ -184,15 +196,18 @@ def from_file(input_path = 'input.txt', output_path = 'output.txt'):
 
     with open(input_path, 'r') as f_in, open(output_path, 'w') as f_out:
         input_type = ''
+
         line = f_in.readline()
         while line:
             line = line.rstrip('\n')
 
             if line in commands:
                 input_type = line
+
                 if input_type == 'alphabet':
                     alg.alphabet = ''
                     alg.scheme = []
+                    
                 if input_type == 'scheme':
                     alg.scheme = []
             else:
