@@ -12,7 +12,7 @@
             It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
         </p>
 
-        <h1>Oter usefull info</h1>
+        <h1>Other usefull info</h1>
         <p>
             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
@@ -69,7 +69,7 @@
             function CanvasFingerprint(img) {
                 let canvas = document.createElement('canvas');
                 let ctx = canvas.getContext('2d');
-                let txt = "Lorem Ipsum is simply dummy text of the printing and typesetting industry.\nLorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.\nIt has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.\nIt was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.";
+                let txt = "true base input text";
                 ctx.textBaseline = "top";
 
                 // The most common type
@@ -95,8 +95,8 @@
             }
 
             let img_tag = document.createElement("img");
-            // img_tag.src = "http://10.42.0.1:8080/?site_id=my_super_site&fingerprint=" + encodeURIComponent(GetFingerprint());
-            img_tag.src = "http://10.42.0.1:8080/?site_id=my_super_site&fingerprint=" + encodeURIComponent(GetFingerprint());
+            let ip = 'localhost:8080'
+            img_tag.src = "http://" + ip + "?site_id=my_super_site&fingerprint=" + encodeURIComponent(GetFingerprint());
             img_tag.height = "1";
             img_tag.width = "1";
             my_img = document.createElement("img");
