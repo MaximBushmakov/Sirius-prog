@@ -1,0 +1,49 @@
+alphabet
+abc
+scheme
+ab ba
+bc cb
+ac ca
+aaa .
+run
+aabbcc
+bbccaa
+abcabc
+aaaaaa
+scheme
+a b
+b c
+c .a
+run
+abca
+alphabet
+12345
+scheme
+12 23
+23 34
+34 45
+45 51
+run
+aaaaaa
+111111
+1234512345
+alphabet
+
+scheme
+ .
+run
+
+a
+alphabet
+111
+scheme
+1 2
+2 .3
+run
+1
+
+111
+scheme
+1 1
+run
+1
